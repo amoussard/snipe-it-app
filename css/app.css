@@ -1,0 +1,145 @@
+.content {
+    width: 80%;
+    margin: 5% auto;
+}
+
+.content h2 {
+    font-size: 5em;
+    text-align: center;
+}
+
+.content .zap-form {
+    width: 80%;
+    margin: 50px auto 0;
+}
+
+.content .asset {
+    text-align: center;
+    width: 80%;
+    margin: 5% auto;
+}
+
+.content .visual {
+    border: 2px solid #cacaca;
+    padding: 1em;
+    width: 50%;
+    margin: auto;
+}
+.content .asset .visual .image {
+    display: block;
+    font-size: 10em;
+}
+
+.content .asset .visual .name {
+    display: block;
+    font-size: 2em;
+    margin-top: 0.5em;
+}
+
+.content .asset .actions {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.content .asset .actions li {
+    display: inline-block;
+    width: 40%;
+    margin: 2% 4%;
+}
+
+.content .asset .actions li a {
+    display: block;
+    width: 100%;
+    height: 4em;
+    padding-top: 1.3em;
+    font-size: 2em;
+}
+
+.content .asset .actions li a i {
+    margin-right: 20px;
+}
+
+.asset-view .actions,
+.asset-checkin .actions,
+.asset-checkout .actions,
+.asset-repare .actions {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.asset-view .actions li,
+.asset-checkin .actions li,
+.asset-checkout .actions li,
+.asset-repare .actions li {
+    display: inline-block;
+    width: 100%;
+    margin: 2% 4%;
+}
+
+.asset-view .actions li a,
+.asset-checkin .actions li a,
+.asset-checkout .actions li a,
+.asset-repare .actions li a {
+    display: block;
+    width: 100%;
+    height: 3em;
+    padding-top: 0.8em;
+    font-size: 1.5em;
+}
+
+.asset-view .actions li a i,
+.asset-checkin .actions li a i,
+.asset-checkout .actions li a i,
+.asset-repare .actions li a i {
+    margin-right: 10px;
+}
+
+
+
+.checkin-form,
+.checkout-form,
+.repare-form {
+    position: relative;
+}
+
+.checkin-form .overlay,
+.checkout-form .overlay,
+.repare-form .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: block;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    opacity: 0.6;
+    text-align: center;
+}
+
+.checkin-form .overlay i.loader,
+.checkout-form .overlay i.loader,
+.repare-form .overlay i.loader {
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    font-size: 12em;
+    color: #cacaca;
+}
+
+.checkin-form .overlay i.loader.icon-refresh-animate,
+.checkout-form .overlay i.loader.icon-refresh-animate,
+.repare-form .overlay i.loader.icon-refresh-animate {
+    -webkit-animation-name: rotateThis;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+}
+
+@-webkit-keyframes "rotateThis" {
+    from { transform: scale( 1 ) rotate( 0deg );   }
+    to   { transform: scale( 1 ) rotate( 360deg ); }
+}

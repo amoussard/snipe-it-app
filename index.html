@@ -2,26 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My HTML File</title>
+    <link rel="stylesheet" href="bower_components/normalize-css/normalize.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/angucomplete/angucomplete.css">
     <link rel="stylesheet" href="css/app.css">
 </head>
-<body ng-app="SnipeItApp" ng-controller="assetsController">
-    <input type="text" ng-model="macFilter" ng-change="update(macFilter)" placeholder="Mac Address"/>
-
-    <div ng-show="asset">
-        <span ng-if="asset.id == 11">Default</span>
-        <span>{{ asset.name }}</span>
-        <a href="#">Checkin</a>
-        <a href="#">Checkout</a>
-        <a href="#">Repare</a>
+<body ng-app="SnipeItApp">
+    <div class="container-fluid">
+        <ng-view></ng-view>
     </div>
+
+
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
-
-    <script src="js/services.js"></script>
+    <script src="js/assetService.js"></script>
+    <script src="js/locationService.js"></script>
     <script src="js/controllers.js"></script>
     <script src="js/app.js"></script>
+    <script src="bower_components/angucomplete/angucomplete.js"></script>
 
 
 </body>

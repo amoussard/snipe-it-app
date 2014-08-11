@@ -1,0 +1,98 @@
+<div class="content asset-view" ng-show="asset">
+    <div class="row">
+        <div class="col-md-9">
+            <h2 class="name">
+                Box view
+            </h2>
+
+            <div class="row">
+                <h3>Informations</h3>
+                <div class="informations">
+                    <div class="col-md-8">
+                        <label for="name">Name : </label>
+                        <span id="name">{{ asset.name }}</span>
+                    </div>
+                    <div class="col-md-8">
+                        <label for="mac">MAC address : </label>
+                        <span id="mac">{{ asset.macAddress }}</span>
+                    </div>
+                    <div class="col-md-8">
+                        <label for="status">Status : </label>
+                        <span id="status" class="btn {{ asset.status.class }}">{{ asset.status.name }}</span>
+                    </div>
+                    <div class="col-md-8">
+                        <label for="model">Model : </label>
+                        <span id="model">{{ asset.model.name }}</span>
+                    </div>
+                    <div class="col-md-8">
+                        <label for="serial">Serial : </label>
+                        <span id="serial">{{ asset.serial }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <h3>Logs</h3>
+                <div class="table-responsive" ng-if="asset.logs.length > 0">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Action</th>
+                            <th>Location</th>
+                            <th>Note</th>
+                        </tr>
+                        </thead>
+                        <tr ng-repeat="log in asset.logs">
+                            <td>{{ log.creation_date }}</td>
+                            <td>{{ log.action_type }}</td>
+                            <td>{{ log.location_name }}</td>
+                            <td>{{ log.note }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-12" ng-if="asset.logs.length === 0">
+                    <div class="alert alert-info alert-block">
+                        <i class="icon-info-sign"></i>
+                        No Results.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+
+            <ul class="actions">
+                <li>
+                    <a href="#/asset" class="btn btn-default btn-lg">
+                        <i class="glyphicon glyphicon-barcode"></i>
+                        Back to scan
+                    </a>
+                </li>
+                <li>
+                    <a href="#asset/2457/edit" class="btn btn-warning btn-lg">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                        Edit Asset
+                    </a>
+                </li>
+                <li ng-if="asset.can_checkin">
+                    <a href="#/asset/{{ asset.id }}/checkin" class="btn btn-primary btn-lg">
+                        <i class="glyphicon glyphicon-import"></i>
+                        Checkin
+                    </a>
+                </li>
+                <li ng-if="asset.can_checkout">
+                    <a href="#/asset/{{ asset.id }}/checkout" class="btn btn-info btn-lg">
+                        <i class="glyphicon glyphicon-export"></i>
+                        Checkout
+                    </a>
+                </li>
+                <li ng-if="asset.can_repare">
+                    <a href="#/asset/{{ asset.id }}/repare" class="btn btn-warning btn-lg">
+                        <i class="glyphicon glyphicon-wrench"></i>
+                        Repare
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

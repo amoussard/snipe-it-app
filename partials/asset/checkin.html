@@ -1,0 +1,65 @@
+<div class="content asset-checkin" ng-show="asset">
+    <div class="row">
+        <div class="col-md-9">
+            <h2 class="name">
+                Box checkin
+            </h2>
+
+            <div class="col-md-12 response" ng-if="responses">
+                <div class="alert {{ responses.class }}">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <i class="{{ responses.icon }}"></i>
+                    {{ responses.message }}
+                </div>
+            </div>
+
+            <form role="form" class="checkin-form" ng-submit="checkin()" ng-if="finish != true">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <span id="name" class="help-block">{{ asset.name }}</span>
+                </div>
+                <div class="form-group">
+                    <label for="mac">MAC address</label>
+                    <span id="mac" class="help-block">{{ asset.macAddress }}</span>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <span id="status" class="help-block">
+                        <span class="btn {{ asset.status.class }}">{{ asset.status.name }}</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <span id="location" class="help-block">{{ asset.location.name }}</span>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes</label>
+                    <textarea id="notes" class="form-control input-lg" ng-model="note"></textarea>
+                </div>
+
+                <input type="submit" class="btn btn-primary btn-lg" value="Checkin">
+
+                <div class="overlay" ng-show="loading">
+                    <i class="loader icon-refresh-animate glyphicon glyphicon-refresh"></i>
+                </div>
+            </form>
+
+        </div>
+        <div class="col-md-3">
+            <ul class="actions">
+                <li>
+                    <a href="#/asset" class="btn btn-default btn-lg">
+                        <i class="glyphicon glyphicon-barcode"></i>
+                        Back to scan
+                    </a>
+                </li>
+                <li>
+                    <a href="#/asset/{{ asset.id }}" class="btn btn-default btn-lg">
+                        <i class="glyphicon glyphicon-eye-open"></i>
+                        Back to view
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="content">
+
+    <h2>Zap ton produit</h2>
+
+    <form role="form" class="zap-form">
+        <div class="input-group">
+            <div class="input-group-addon">
+                <i class="glyphicon glyphicon-barcode"></i>
+            </div>
+            <input class="form-control input-lg col-md-8" type="text" ng-model="macFilter" ng-change="update(macFilter)" placeholder="Mac Address"/>
+        </div>
+    </form>
+
+    <div ng-show="asset" class="asset">
+        <div class="visual">
+            <i class="glyphicon glyphicon-hdd image"></i>
+            <span class="name">{{ asset.name }}</span>
+        </div>
+        <ul class="actions">
+            <li>
+                <a href="#/asset/{{ asset.id }}" class="btn btn-default btn-lg">
+                    <i class="glyphicon glyphicon-eye-open"></i>
+                    View
+                </a>
+            </li>
+            <li ng-if="asset.can_checkin">
+                <a href="#/asset/{{ asset.id }}/checkin" class="btn btn-primary btn-lg">
+                    <i class="glyphicon glyphicon-import"></i>
+                    Checkin
+                </a>
+            </li>
+            <li ng-if="asset.can_checkout">
+                <a href="#/asset/{{ asset.id }}/checkout" class="btn btn-info btn-lg">
+                    <i class="glyphicon glyphicon-export"></i>
+                    Checkout
+                </a>
+            </li>
+            <li ng-if="asset.can_repare">
+                <a href="#/asset/{{ asset.id }}/repare" class="btn btn-warning btn-lg">
+                    <i class="glyphicon glyphicon-wrench"></i>
+                    Repare
+                </a>
+            </li>
+            <li>
+                <a href="#" class="btn btn-danger btn-lg" ng-click="reset()">
+                    <i class="glyphicon glyphicon-repeat"></i>
+                    Reset
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</div>
