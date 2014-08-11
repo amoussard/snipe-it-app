@@ -1,57 +1,77 @@
-angular.module('SnipeItApp.services', []).
-    factory('snipeItAPIservice', function($http) {
+angular.module('SnipeItAssetApp.services', []).
+    factory('snipeItAssetAPIservice', function($http) {
 
-        var snipeItAPI = {};
+        var snipeItAssetAPI = {};
 
-        snipeItAPI.getAssets = function() {
+        snipeItAssetAPI.getAssets = function() {
             return $http({
                 method: 'GET',
-                url: 'http://192.168.2.18:3000/hardware'
+                url: 'http://api.snipeit.local:3000/hardware'
             });
         };
 
-        snipeItAPI.searchOne = function(macAddress) {
+        snipeItAssetAPI.searchOne = function(macAddress) {
             return $http({
                 method: 'GET',
-                url: 'http://192.168.2.18:3000/hardware/findOne',
+                url: 'http://api.snipeit.local:3000/hardware/findOne',
                 params: {
                     macAddress: macAddress
                 }
             });
         };
 
-        snipeItAPI.getAsset = function(id, withLogs) {
-            var request = {
+        snipeItAssetAPI.getAsset = function(id) {
+            return $http({
                 method: 'GET',
-                url: 'http://192.168.2.18:3000/hardware/'+id
-            }
-            if (withLogs) {
-                request.params = {
-                    withLogs: true
-                }
-            }
-            return $http(request);
+                url: 'http://api.snipeit.local:3000/hardware/'+id
+            });
         };
 
-        snipeItAPI.checkin = function(id, note) {
+        snipeItAssetAPI.checkin = function(id, note) {
             return $http({
                 method: 'POST',
-                url: 'http://192.168.2.18:3000/hardware/'+id+'/checkin',
+                url: 'http://api.snipeit.local:3000/hardware/'+id+'/checkin',
                 data: {
                     note: note
                 }
             });
         };
 
-        snipeItAPI.repare = function(id, note) {
+        snipeItAssetAPI.repare = function(id, note) {
             return $http({
                 method: 'POST',
-                url: 'http://192.168.2.18:3000/hardware/'+id+'/repare',
+                url: 'http://api.snipeit.local:3000/hardware/'+id+'/repare',
                 data: {
                     note: note
                 }
             });
         };
 
-        return snipeItAPI;
+        snipeItAssetAPI.checkout = function(asset, note) {
+            return $http({
+                method: 'POST',
+                url: 'http://api.snipeit.local:3000/hardware/'+asset.id+'/checkout',
+                data: {
+                    location: asset.location.id,
+                    note: note
+                }
+            });
+        };
+
+        snipeItAssetAPI.save = function(asset) {
+            return $http({
+                method: 'PUT',
+                url: 'http://api.snipeit.local:3000/hardware/'+asset.id,
+                data: {
+                    name: asset.name,
+                    serial: asset.serial,
+                    status_id: asset.status.id,
+                    model_id: asset.model.id,
+                    location_id: asset.location.id,
+                    notes: asset.notes
+                }
+            });
+        };
+
+        return snipeItAssetAPI;
     });

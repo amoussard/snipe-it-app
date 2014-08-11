@@ -28,9 +28,9 @@ function isEmpty(map) {
 angular.module('SnipeItApp.controllers', []).
 
 
-    controller('assetIndexController', function($scope, snipeItAPIservice) {
+    controller('assetIndexController', function($scope, snipeItAssetAPIservice) {
         $scope.update = function (macAddress) {
-            snipeItAPIservice.searchOne(macAddress)
+            snipeItAssetAPIservice.searchOne(macAddress)
                 .success(function (response) {
                     $scope.asset = response;
                     if (isEmpty(response)) {
@@ -45,10 +45,10 @@ angular.module('SnipeItApp.controllers', []).
         }
     }).
 
-    controller('assetViewController', function($scope, $routeParams, $location, snipeItAPIservice) {
+    controller('assetViewController', function($scope, $routeParams, $location, snipeItAssetAPIservice) {
         $scope.id = $routeParams.id;
 
-        snipeItAPIservice.getAsset($scope.id, true)
+        snipeItAssetAPIservice.getAsset($scope.id)
             .success(function (response) {
                 if (isEmpty(response)) {
                     $location.path("/asset");
@@ -58,11 +58,14 @@ angular.module('SnipeItApp.controllers', []).
             });
     }).
 
-    controller('assetCheckinController', function($scope, $routeParams, snipeItAPIservice) {
+    controller('assetCheckinController', function($scope, $routeParams, $location, snipeItAssetAPIservice) {
         $scope.id = $routeParams.id;
 
-        snipeItAPIservice.getAsset($scope.id)
+        snipeItAssetAPIservice.getAsset($scope.id)
             .success(function (response) {
+                if (isEmpty(response)) {
+                    $location.path("/asset");
+                }
                 $scope.asset = response;
                 $scope.asset.status.class = STATUS_TO_CLASS[$scope.asset.status.id];
             });
@@ -70,7 +73,7 @@ angular.module('SnipeItApp.controllers', []).
         $scope.checkin = function () {
             $scope.loading = true;
 
-            snipeItAPIservice.checkin($scope.asset.id, $scope.note)
+            snipeItAssetAPIservice.checkin($scope.asset.id, $scope.note)
                 .success(function (response) {
                     if (isEmpty(response)) {
                         $location.path("/asset");
@@ -95,11 +98,14 @@ angular.module('SnipeItApp.controllers', []).
         };
     }).
 
-    controller('assetRepareController', function($scope, $routeParams, snipeItAPIservice) {
+    controller('assetRepareController', function($scope, $routeParams, $location, snipeItAssetAPIservice) {
         $scope.id = $routeParams.id;
 
-        snipeItAPIservice.getAsset($scope.id)
+        snipeItAssetAPIservice.getAsset($scope.id)
             .success(function (response) {
+                if (isEmpty(response)) {
+                    $location.path("/asset");
+                }
                 $scope.asset = response;
                 $scope.asset.status.class = STATUS_TO_CLASS[$scope.asset.status.id];
             });
@@ -107,16 +113,15 @@ angular.module('SnipeItApp.controllers', []).
         $scope.repare = function () {
             $scope.loading = true;
 
-            snipeItAPIservice.repare($scope.asset.id, $scope.note)
+            snipeItAssetAPIservice.repare($scope.asset.id, $scope.note)
                 .success(function (response) {
-
                     if (isEmpty(response)) {
                         $location.path("/asset");
                     }
 
                     if (response.success) {
                         $scope.responses = {
-                            message: 'Send to Exabit for repair sucess',
+                            message: 'Send to Exabit for repair success',
                             class: 'alert-success',
                             icon: 'glyphicon glyphicon-ok'
                         };
@@ -133,15 +138,17 @@ angular.module('SnipeItApp.controllers', []).
         };
     }).
 
-    controller('assetCheckoutController', function($scope, $routeParams, snipeItAPIservice, snipeItLocationAPIservice) {
+    controller('assetCheckoutController', function($scope, $routeParams, $location, snipeItAssetAPIservice, snipeItLocationAPIservice) {
         $scope.id = $routeParams.id;
 
-        snipeItAPIservice.getAsset($scope.id)
+        snipeItAssetAPIservice.getAsset($scope.id)
             .success(function (response) {
+                if (isEmpty(response)) {
+                    $location.path("/asset");
+                }
                 $scope.asset = response;
                 $scope.asset.status.class = STATUS_TO_CLASS[$scope.asset.status.id];
                 $scope.updateLocation = false;
-                $scope.locations = [];
             });
 
         $scope.modifyLocation = function () {
@@ -155,8 +162,113 @@ angular.module('SnipeItApp.controllers', []).
                 });
         };
 
+        $scope.chooseLocation = function (location) {
+            $scope.asset.location = location;
+            $scope.updateLocation = false;
+        };
+
         $scope.checkout = function () {
             $scope.loading = true;
+
+            snipeItAssetAPIservice.checkout($scope.asset, $scope.note)
+                .success(function (response) {
+                    if (isEmpty(response)) {
+                        $location.path("/asset");
+                    }
+
+                    if (response.success) {
+                        $scope.responses = {
+                            message: 'Send to '+$scope.asset.location.name+' with success',
+                            class: 'alert-success',
+                            icon: 'glyphicon glyphicon-ok'
+                        };
+                    } else {
+                        $scope.responses = {
+                            message: 'Error : ' + response.error,
+                            class: 'alert-danger',
+                            icon: 'glyphicon glyphicon-remove'
+                        };
+                    }
+                    $scope.loading = false;
+                    $scope.finish = true;
+                });
+        };
+    }).
+    controller('assetEditController', function($scope, $routeParams, $location, snipeItAssetAPIservice, snipeItStatusAPIservice, snipeItModelAPIservice, snipeItLocationAPIservice) {
+        $scope.id = $routeParams.id;
+
+        snipeItAssetAPIservice.getAsset($scope.id)
+            .success(function (response) {
+                if (isEmpty(response)) {
+                    $location.path("/asset");
+                }
+                $scope.asset = response;
+                $scope.asset.status.class = STATUS_TO_CLASS[$scope.asset.status.id];
+                $scope.updateLocation = false;
+            });
+
+        snipeItStatusAPIservice.getStatusList()
+            .success(function (response) {
+                for (var i in response) {
+                    response[i].class = STATUS_TO_CLASS[response[i].id];
+                }
+                $scope.statusList = response;
+            });
+
+        snipeItModelAPIservice.getModelsList()
+            .success(function (response) {
+                $scope.modelsList = response;
+            });
+
+        $scope.modifyLocation = function () {
+            $scope.updateLocation = true;
+        };
+
+        $scope.filterLocations = function (locationName) {
+            snipeItLocationAPIservice.search(locationName)
+                .success(function (response) {
+                    $scope.locations = response;
+                });
+        };
+
+        $scope.chooseStatus = function (status) {
+            $scope.asset.status = status;
+        };
+
+        $scope.chooseModel = function (model) {
+            $scope.asset.model = model;
             console.log($scope.asset);
+        };
+
+        $scope.chooseLocation = function (location) {
+            $scope.asset.location = location;
+            $scope.updateLocation = false;
+        };
+
+        $scope.save = function () {
+            $scope.loading = true;
+
+            snipeItAssetAPIservice.save($scope.asset)
+                .success(function (response) {
+                    if (isEmpty(response)) {
+                        $location.path("/asset");
+                    }
+
+                    if (response.success) {
+                        $scope.responses = {
+                            message: $scope.asset.location.name+' saved with success',
+                            class: 'alert-success',
+                            icon: 'glyphicon glyphicon-ok'
+                        };
+                    } else {
+                        $scope.responses = {
+                            message: 'Error : ' + response.error,
+                            class: 'alert-danger',
+                            icon: 'glyphicon glyphicon-remove'
+                        };
+                    }
+                    $scope.loading = false;
+                    $scope.finish = true;
+                });
         };
     });

@@ -1,8 +1,8 @@
-<div class="content asset-checkout" ng-show="asset">
+<div class="content asset-edit" ng-show="asset">
     <div class="row">
         <div class="col-md-9">
             <h2 class="name">
-                Box checkout
+                Box edit
             </h2>
 
             <div class="col-md-12 response" ng-if="responses">
@@ -13,21 +13,52 @@
                 </div>
             </div>
 
-            <form role="form" class="checkout-form" ng-submit="checkout()" ng-if="finish != true">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <span id="name" class="help-block">{{ asset.name }}</span>
-                </div>
+            <form role="form" class="edit-form" ng-submit="save()" ng-if="finish != true">
                 <div class="form-group">
                     <label for="mac">MAC address</label>
                     <span id="mac" class="help-block">{{ asset.macAddress }}</span>
                 </div>
+
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input id="name" ng-model="asset.name" placeholder="Name" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label for="serial">Serial</label>
+                    <input id="serial" ng-model="asset.serial" placeholder="Serial" class="form-control" />
+                </div>
+
                 <div class="form-group">
                     <label for="status">Status</label>
-                    <span id="status" class="help-block">
-                        <span class="btn {{ asset.status.class }}">{{ asset.status.name }}</span>
-                    </span>
+                    <ul class="status-list" id="status">
+                        <li ng-repeat="status in statusList">
+                            <span
+                                class="btn {{ status.class }}"
+                                ng-class="{'grey': asset.status.id != status.id}"
+                                ng-click="chooseStatus(status)"
+                            >
+                                {{ status.name }}
+                            </span>
+                        </li>
+                    </ul>
                 </div>
+
+                <div class="form-group">
+                    <label for="model">Model</label>
+                    <ul class="models-list" id="model">
+                        <li ng-repeat="model in modelsList">
+                            <span
+                                class="btn btn-info"
+                                ng-class="{'grey': asset.model.id != model.id}"
+                                ng-click="chooseModel(model)"
+                            >
+                                {{ model.name }}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
                 <div class="form-group">
                     <label for="location">Location</label>
                     <span id="location" class="help-block" ng-if="updateLocation === false">
@@ -41,7 +72,7 @@
                         type="text"
                         class="form-control"
                         ng-model="location_name"
-                        ng-change="updateLocations(location_name)"
+                        ng-change="filterLocations(location_name)"
                         ng-if="updateLocation === true"
                         placeholder="Location"
                     />
@@ -54,18 +85,18 @@
 
                 <div class="form-group">
                     <label for="notes">Notes</label>
-                    <textarea id="notes" class="form-control input-lg" ng-model="note"></textarea>
+                    <textarea id="notes" class="form-control input-lg" ng-model="asset.notes"></textarea>
                 </div>
 
-                <input type="submit" class="btn btn-primary btn-lg" value="Checkout">
+                <input type="submit" class="btn btn-primary btn-lg" value="Save">
 
                 <div class="overlay" ng-show="loading">
                     <i class="loader icon-refresh-animate glyphicon glyphicon-refresh"></i>
                 </div>
             </form>
-
         </div>
         <div class="col-md-3 right-column">
+
             <ul class="actions">
                 <li>
                     <a href="#/asset" class="btn btn-default btn-lg">

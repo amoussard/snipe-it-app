@@ -1,8 +1,10 @@
 angular.module('SnipeItApp', [
     'SnipeItApp.controllers',
-    'SnipeItApp.services',
-    'ngRoute',
-    'angucomplete'
+    'SnipeItAssetApp.services',
+    'SnipeItLocationApp.services',
+    'SnipeItStatusApp.services',
+    'SnipeItModelApp.services',
+    'ngRoute'
 ]).
 config(['$routeProvider', function($routeProvider) {
     $routeProvider.
@@ -11,5 +13,6 @@ config(['$routeProvider', function($routeProvider) {
         when("/asset/:id/checkin", {templateUrl: "partials/asset/checkin.html", controller: "assetCheckinController"}).
         when("/asset/:id/checkout", {templateUrl: "partials/asset/checkout.html", controller: "assetCheckoutController"}).
         when("/asset/:id/repare", {templateUrl: "partials/asset/repare.html", controller: "assetRepareController"}).
+        when("/asset/:id/edit", {templateUrl: "partials/asset/edit.html", controller: "assetEditController"}).
         otherwise({redirectTo: '/asset'});
 }]);

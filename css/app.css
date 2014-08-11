@@ -1,6 +1,6 @@
 .content {
     width: 80%;
-    margin: 5% auto;
+    margin: 2% auto;
 }
 
 .content h2 {
@@ -61,29 +61,20 @@
     margin-right: 20px;
 }
 
-.asset-view .actions,
-.asset-checkin .actions,
-.asset-checkout .actions,
-.asset-repare .actions {
+.right-column .actions {
     list-style: none;
     padding: 0;
     margin: 0;
     width: 100%;
 }
 
-.asset-view .actions li,
-.asset-checkin .actions li,
-.asset-checkout .actions li,
-.asset-repare .actions li {
+.right-column .actions li {
     display: inline-block;
     width: 100%;
     margin: 2% 4%;
 }
 
-.asset-view .actions li a,
-.asset-checkin .actions li a,
-.asset-checkout .actions li a,
-.asset-repare .actions li a {
+.right-column .actions li a {
     display: block;
     width: 100%;
     height: 3em;
@@ -91,10 +82,7 @@
     font-size: 1.5em;
 }
 
-.asset-view .actions li a i,
-.asset-checkin .actions li a i,
-.asset-checkout .actions li a i,
-.asset-repare .actions li a i {
+.right-column .actions li a i {
     margin-right: 10px;
 }
 
@@ -142,4 +130,38 @@
 @-webkit-keyframes "rotateThis" {
     from { transform: scale( 1 ) rotate( 0deg );   }
     to   { transform: scale( 1 ) rotate( 360deg ); }
+}
+
+.checkout-form .locations,
+.edit-form .locations {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.checkout-form .locations li,
+.edit-form .locations li {
+    display: inline-block;
+    margin: 5px;
+}
+
+
+
+.asset-edit .status-list,
+.asset-edit .models-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.asset-edit .status-list li,
+.asset-edit .models-list li {
+    display: inline-block;
+    margin: 5px;
+}
+
+.asset-edit .status-list li .grey,
+.asset-edit .models-list li .grey {
+    background-color: #cacaca;
+    border-color: #cacaca;
 }
