@@ -6,7 +6,7 @@ angular.module('SnipeItModelApp.services', []).
         snipeItModelAPI.getModelsList = function() {
             return $http({
                 method: 'GET',
-                url: 'http://api.snipeit.local:3000/model'
+                url: API_URL+'/model'
             });
         };
 

@@ -6,14 +6,14 @@ angular.module('SnipeItAssetApp.services', []).
         snipeItAssetAPI.getAssets = function() {
             return $http({
                 method: 'GET',
-                url: 'http://api.snipeit.local:3000/hardware'
+                url: API_URL+'/hardware'
             });
         };
 
         snipeItAssetAPI.searchOne = function(macAddress) {
             return $http({
                 method: 'GET',
-                url: 'http://api.snipeit.local:3000/hardware/findOne',
+                url: API_URL+'/hardware/findOne',
                 params: {
                     macAddress: macAddress
                 }
@@ -23,14 +23,14 @@ angular.module('SnipeItAssetApp.services', []).
         snipeItAssetAPI.getAsset = function(id) {
             return $http({
                 method: 'GET',
-                url: 'http://api.snipeit.local:3000/hardware/'+id
+                url: API_URL+'/hardware/'+id
             });
         };
 
         snipeItAssetAPI.checkin = function(id, note) {
             return $http({
                 method: 'POST',
-                url: 'http://api.snipeit.local:3000/hardware/'+id+'/checkin',
+                url: API_URL+'/hardware/'+id+'/checkin',
                 data: {
                     note: note
                 }
@@ -40,7 +40,7 @@ angular.module('SnipeItAssetApp.services', []).
         snipeItAssetAPI.repare = function(id, note) {
             return $http({
                 method: 'POST',
-                url: 'http://api.snipeit.local:3000/hardware/'+id+'/repare',
+                url: API_URL+'/hardware/'+id+'/repare',
                 data: {
                     note: note
                 }
@@ -50,7 +50,7 @@ angular.module('SnipeItAssetApp.services', []).
         snipeItAssetAPI.checkout = function(asset, note) {
             return $http({
                 method: 'POST',
-                url: 'http://api.snipeit.local:3000/hardware/'+asset.id+'/checkout',
+                url: API_URL+'/hardware/'+asset.id+'/checkout',
                 data: {
                     location: asset.location.id,
                     note: note
@@ -61,7 +61,7 @@ angular.module('SnipeItAssetApp.services', []).
         snipeItAssetAPI.save = function(asset) {
             return $http({
                 method: 'PUT',
-                url: 'http://api.snipeit.local:3000/hardware/'+asset.id,
+                url: API_URL+'/hardware/'+asset.id,
                 data: {
                     name: asset.name,
                     serial: asset.serial,

@@ -6,7 +6,7 @@ angular.module('SnipeItLocationApp.services', []).
         snipeItLocationAPI.search = function(s) {
             return $http({
                 method: 'GET',
-                url: 'http://api.snipeit.local:3000/location/search',
+                url: API_URL+'/location/search',
                 params: {
                     s: s
                 }

@@ -6,7 +6,7 @@ angular.module('SnipeItStatusApp.services', []).
         snipeItStatusAPI.getStatusList = function() {
             return $http({
                 method: 'GET',
-                url: 'http://api.snipeit.local:3000/status'
+                url: API_URL+'/status'
             });
         };
 

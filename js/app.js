@@ -1,3 +1,5 @@
+API_URL = 'http://api.snipeit.local:3000';
+
 angular.module('SnipeItApp', [
     'SnipeItApp.controllers',
     'SnipeItAssetApp.services',
