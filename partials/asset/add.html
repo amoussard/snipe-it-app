@@ -1,8 +1,8 @@
-<div class="content asset-checkout" ng-show="asset">
+<div class="content asset-add" ng-show="asset">
     <div class="row">
         <div class="col-md-9">
             <h2 class="name">
-                Box checkout
+                Box add
             </h2>
 
             <div class="col-md-12 response" ng-if="responses">
@@ -13,39 +13,51 @@
                 </div>
             </div>
 
-            <form role="form" class="checkout-form" ng-submit="checkout()" ng-if="finish != true">
-                <div class="form-group col-md-6">
-                    <label>Name</label>
-                    <p class="form-control-static">
-                        {{ asset.name }}
-                    </p>
+            <form role="form" class="add-form" ng-submit="create()" ng-if="finish != true">
+                <div class="form-group">
+                    <label for="mac">MAC address *</label>
+                    <input id="mac" ng-model="asset.macAddress" placeholder="MAC Address" class="form-control" required />
                 </div>
-                <div class="form-group col-md-6">
-                    <label>Status</label>
-                    <p class="form-control-static">
-                        <span class="btn {{ asset.status.class }}">{{ asset.status.name }}</span>
-                    </p>
+
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input id="name" ng-model="asset.name" placeholder="Name" class="form-control" required />
                 </div>
-                <div class="form-group col-md-6">
-                    <label>MAC address</label>
-                    <p class="form-control-static">
-                        {{ asset.macAddress }}
-                    </p>
+
+                <div class="form-group">
+                    <label for="serial">Serial</label>
+                    <input id="serial" ng-model="asset.serial" placeholder="Serial" class="form-control" />
                 </div>
-                <div class="form-group col-md-12">
-                    <label>Location</label>
-                    <p class="form-control-static" ng-if="updateLocation === false">
+
+                <div class="form-group">
+                    <label for="model">Model *</label>
+                    <ul class="models-list" id="model">
+                        <li ng-repeat="model in modelsList">
+                            <span
+                                class="btn btn-info"
+                                ng-class="{'grey': asset.model.id != model.id}"
+                                ng-click="chooseModel(model)"
+                            >
+                                {{ model.name }}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location *</label>
+                    <span id="location" class="help-block" ng-if="updateLocation === false">
                         <span class="help-block">{{ asset.location.name }}</span>
                         <a class="btn btn-warning" ng-click="modifyLocation()">
                             <i class="glyphicon glyphicon-pencil"></i>
                             Modify
                         </a>
-                    </p>
+                    </span>
                     <input
                         type="text"
                         class="form-control"
                         ng-model="location_name"
-                        ng-change="updateLocations(location_name)"
+                        ng-change="filterLocations(location_name)"
                         ng-if="updateLocation === true"
                         placeholder="Location"
                     />
@@ -56,20 +68,17 @@
                     </ul>
                 </div>
 
-                <div class="form-group col-md-12">
+                <div class="form-group">
                     <label for="notes">Notes</label>
-                    <textarea id="notes" class="form-control input-lg" ng-model="note"></textarea>
+                    <textarea id="notes" class="form-control input-lg" ng-model="asset.notes"></textarea>
                 </div>
 
-                <div class="form-group col-md-12">
-                    <input type="submit" class="btn btn-primary btn-lg" value="Checkout">
-                </div>
+                <input type="submit" class="btn btn-primary btn-lg" value="Create">
 
                 <div class="overlay" ng-show="loading">
                     <i class="loader icon-refresh-animate glyphicon glyphicon-refresh"></i>
                 </div>
             </form>
-
         </div>
         <div class="col-md-3 right-column">
             <ul class="actions">
@@ -79,7 +88,7 @@
                         Back to scan
                     </a>
                 </li>
-                <li>
+                <li ng-if="asset.id">
                     <a href="#/asset/{{ asset.id }}" class="btn btn-default btn-lg">
                         <i class="glyphicon glyphicon-eye-open"></i>
                         Back to view

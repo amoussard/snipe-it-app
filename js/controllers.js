@@ -55,7 +55,22 @@ angular.module('SnipeItApp.controllers', []).
                 }
                 $scope.asset = response;
                 $scope.asset.status.class = STATUS_TO_CLASS[$scope.asset.status.id];
+                $scope.newBarcode = CryptoJS.MD5(
+                    ($scope.asset.serial ? $scope.asset.serial : '')
+                    +($scope.asset.macAddress ? $scope.asset.macAddress : '')
+                    +($scope.asset.model.id ? $scope.asset.model.id : '')
+                ).toString();
             });
+
+        $scope.generateBarcode = function() {
+            snipeItAssetAPIservice.generateBarcode($scope.asset)
+                .success(function (response) {
+                    if (isEmpty(response)) {
+                        $location.path("/asset");
+                    }
+                    $scope.asset.barcode = response.barcode;
+                });
+        }
     }).
 
     controller('assetCheckinController', function($scope, $routeParams, $location, snipeItAssetAPIservice) {
@@ -237,7 +252,6 @@ angular.module('SnipeItApp.controllers', []).
 
         $scope.chooseModel = function (model) {
             $scope.asset.model = model;
-            console.log($scope.asset);
         };
 
         $scope.chooseLocation = function (location) {
@@ -256,10 +270,90 @@ angular.module('SnipeItApp.controllers', []).
 
                     if (response.success) {
                         $scope.responses = {
-                            message: $scope.asset.location.name+' saved with success',
+                            message: $scope.asset.name+' saved with success',
                             class: 'alert-success',
                             icon: 'glyphicon glyphicon-ok'
                         };
+                    } else {
+                        $scope.responses = {
+                            message: 'Error : ' + response.error,
+                            class: 'alert-danger',
+                            icon: 'glyphicon glyphicon-remove'
+                        };
+                    }
+                    $scope.loading = false;
+                    $scope.finish = true;
+                });
+        };
+    }).
+
+    controller('assetAddController', function($scope, $routeParams, $location, snipeItAssetAPIservice, snipeItModelAPIservice, snipeItLocationAPIservice) {
+        $scope.asset = {};
+        $scope.updateLocation = false;
+
+        snipeItModelAPIservice.getModelsList()
+            .success(function (response) {
+                $scope.modelsList = response;
+            });
+
+        $scope.modifyLocation = function () {
+            $scope.updateLocation = true;
+        };
+
+        $scope.filterLocations = function (locationName) {
+            snipeItLocationAPIservice.search(locationName)
+                .success(function (response) {
+                    $scope.locations = response;
+                });
+        };
+
+        $scope.chooseModel = function (model) {
+            $scope.asset.model = model;
+        };
+
+        $scope.chooseLocation = function (location) {
+            $scope.asset.location = location;
+            $scope.updateLocation = false;
+        };
+
+        $scope.create = function () {
+            $scope.loading = true;
+            $scope.responses = null;
+
+            if (!$scope.asset.model || !$scope.asset.model.id) {
+                $scope.responses = {
+                    message: 'Error : The model must be chosen.',
+                    class: 'alert-danger',
+                    icon: 'glyphicon glyphicon-remove'
+                };
+                $scope.loading = false;
+                return;
+            }
+
+            if (!$scope.asset.location || !$scope.asset.location.id) {
+                $scope.responses = {
+                    message: 'Error : The location must be chosen.',
+                    class: 'alert-danger',
+                    icon: 'glyphicon glyphicon-remove'
+                };
+                $scope.loading = false;
+                return;
+            }
+
+            snipeItAssetAPIservice.create($scope.asset)
+                .success(function (response) {
+                    if (response.success) {
+                        snipeItAssetAPIservice.getAsset(response.id)
+                            .success(function (response) {
+                                $scope.asset = response;
+
+                                $scope.responses = {
+                                    message: $scope.asset.name+' saved with success with the barcode : '+$scope.asset.barcode,
+                                    class: 'alert-success',
+                                    icon: 'glyphicon glyphicon-ok'
+                                };
+                            });
+
                     } else {
                         $scope.responses = {
                             message: 'Error : ' + response.error,

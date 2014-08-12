@@ -11,6 +11,16 @@
         </div>
     </form>
 
+    <div ng-if="!asset" class="add-asset">
+        <ul class="actions">
+            <li>
+                <a href="#/asset/add" class="btn btn-success btn-lg">
+                    <i class="glyphicon glyphicon-plus"></i>
+                    Add
+                </a>
+            </li>
+        </ul>
+    </div>
     <div ng-show="asset" class="asset">
         <div class="visual">
             <i class="glyphicon glyphicon-hdd image"></i>

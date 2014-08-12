@@ -73,5 +73,27 @@ angular.module('SnipeItAssetApp.services', []).
             });
         };
 
+        snipeItAssetAPI.create = function(asset) {
+            return $http({
+                method: 'POST',
+                url: API_URL+'/hardware',
+                data: {
+                    name: asset.name,
+                    serial: asset.serial,
+                    mac: asset.macAddress,
+                    model_id: asset.model.id,
+                    location_id: asset.location.id,
+                    notes: asset.notes
+                }
+            });
+        };
+
+        snipeItAssetAPI.generateBarcode = function(asset) {
+            return $http({
+                method: 'PUT',
+                url: API_URL+'/hardware/'+asset.id+'/barcode'
+            });
+        };
+
         return snipeItAssetAPI;
     });

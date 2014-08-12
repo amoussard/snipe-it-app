@@ -11,6 +11,7 @@ angular.module('SnipeItApp', [
 config(['$routeProvider', function($routeProvider) {
     $routeProvider.
         when("/asset", {templateUrl: "partials/asset/index.html", controller: "assetIndexController"}).
+        when("/asset/add", {templateUrl: "partials/asset/add.html", controller: "assetAddController"}).
         when("/asset/:id", {templateUrl: "partials/asset/view.html", controller: "assetViewController"}).
         when("/asset/:id/checkin", {templateUrl: "partials/asset/checkin.html", controller: "assetCheckinController"}).
         when("/asset/:id/checkout", {templateUrl: "partials/asset/checkout.html", controller: "assetCheckoutController"}).

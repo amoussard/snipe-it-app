@@ -15,30 +15,38 @@
 
             <form role="form" class="repare-form" ng-submit="repare()" ng-if="finish != true">
 
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <span id="name" class="help-block">{{ asset.name }}</span>
+                <div class="form-group col-md-6">
+                    <label>Name</label>
+                    <p class="form-control-static">
+                        {{ asset.name }}
+                    </p>
                 </div>
-                <div class="form-group">
-                    <label for="mac">MAC address</label>
-                    <span id="mac" class="help-block">{{ asset.macAddress }}</span>
+                <div class="form-group col-md-6">
+                    <label>MAC address</label>
+                    <p class="form-control-static">
+                        {{ asset.macAddress }}
+                    </p>
                 </div>
-                <div class="form-group">
-                    <label for="status">Status</label>
-                    <span id="status" class="help-block">
+                <div class="form-group col-md-6">
+                    <label>Status</label>
+                    <p class="form-control-static">
                         <span class="btn {{ asset.status.class }}">{{ asset.status.name }}</span>
-                    </span>
+                    </p>
                 </div>
-                <div class="form-group">
-                    <label for="location">Location</label>
-                    <span id="location" class="help-block">{{ asset.location.name }}</span>
+                <div class="form-group col-md-6">
+                    <label>Location</label>
+                    <p class="form-control-static">
+                        {{ asset.location.name }}
+                    </p>
                 </div>
-                <div class="form-group">
+                <div class="form-group col-md-12">
                     <label for="notes">Notes</label>
                     <textarea id="notes" class="form-control input-lg" ng-model="note"></textarea>
                 </div>
 
-                <input type="submit" class="btn btn-primary btn-lg" value="Repare">
+                <div class="form-group col-md-12">
+                    <input type="submit" class="btn btn-primary btn-lg" value="Repare">
+                </div>
 
                 <div class="overlay" ng-show="loading">
                     <i class="loader icon-refresh-animate glyphicon glyphicon-refresh"></i>

@@ -8,25 +8,54 @@
             <div class="row">
                 <h3>Informations</h3>
                 <div class="informations">
-                    <div class="col-md-8">
-                        <label for="name">Name : </label>
-                        <span id="name">{{ asset.name }}</span>
+                    <div class="col-md-6">
+                        <label>Name</label>
+                        <p class="form-control-static">
+                            {{ asset.name }}
+                        </p>
                     </div>
-                    <div class="col-md-8">
-                        <label for="mac">MAC address : </label>
-                        <span id="mac">{{ asset.macAddress }}</span>
+                    <div class="col-md-6">
+                        <label>Status</label>
+                        <p class="form-control-static">
+                            <span id="status" class="btn {{ asset.status.class }}">{{ asset.status.name }}</span>
+                        </p>
                     </div>
-                    <div class="col-md-8">
-                        <label for="status">Status : </label>
-                        <span id="status" class="btn {{ asset.status.class }}">{{ asset.status.name }}</span>
+                    <div class="col-md-6">
+                        <label>MAC address</label>
+                        <p class="form-control-static">
+                            {{ asset.macAddress }}
+                        </p>
                     </div>
-                    <div class="col-md-8">
-                        <label for="model">Model : </label>
-                        <span id="model">{{ asset.model.name }}</span>
+                    <div class="col-md-6">
+                        <label>Model</label>
+                        <p class="form-control-static">
+                            {{ asset.model.name }}
+                        </p>
                     </div>
-                    <div class="col-md-8">
-                        <label for="serial">Serial : </label>
-                        <span id="serial">{{ asset.serial }}</span>
+                    <div class="col-md-6">
+                        <label>Serial</label>
+                        <p class="form-control-static">
+                            {{ asset.serial }}
+                        </p>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label>Barcode</label>
+                        <p class="form-control-static" ng-if="asset.barcode">
+                            <div class="alert alert-warning" ng-if="asset.barcode != newBarcode">
+                                <i class="glyphicon glyphicon-flag"></i>
+                                <span>The asset have a outdated barcode to identify it. Click </span>
+                                <a ng-click="generateBarcode()">here</a>
+                                <span>to generate another one.</span>
+                            </div>
+                            {{ asset.barcode }}
+                        </p>
+                        <div class="alert alert-warning" ng-if="!asset.barcode">
+                            <i class="glyphicon glyphicon-flag"></i>
+                            <span>The asset have not a barcode to identify it. Click </span>
+                            <a ng-click="generateBarcode()">here</a>
+                            <span>to generate one.</span>
+                        </div>
                     </div>
                 </div>
             </div>

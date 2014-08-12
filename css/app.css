@@ -13,7 +13,8 @@
     margin: 50px auto 0;
 }
 
-.content .asset {
+.content .asset,
+.content .add-asset {
     text-align: center;
     width: 80%;
     margin: 5% auto;
@@ -36,19 +37,22 @@
     margin-top: 0.5em;
 }
 
-.content .asset .actions {
+.content .asset .actions,
+.content .add-asset .actions {
     list-style: none;
     width: 100%;
     padding: 0;
     margin: 0;
 }
 
+.content .add-asset .actions li,
 .content .asset .actions li {
     display: inline-block;
     width: 40%;
     margin: 2% 4%;
 }
 
+.content .add-asset .actions li a,
 .content .asset .actions li a {
     display: block;
     width: 100%;
@@ -57,6 +61,7 @@
     font-size: 2em;
 }
 
+.content .add-asset .actions li a i,
 .content .asset .actions li a i {
     margin-right: 20px;
 }
@@ -88,12 +93,16 @@
 
 
 
+.add-form,
+.edit-form,
 .checkin-form,
 .checkout-form,
 .repare-form {
     position: relative;
 }
 
+.add-form .overlay,
+.edit-form .overlay,
 .checkin-form .overlay,
 .checkout-form .overlay,
 .repare-form .overlay {
@@ -108,6 +117,8 @@
     text-align: center;
 }
 
+.add-form .overlay i.loader,
+.edit-form .overlay i.loader,
 .checkin-form .overlay i.loader,
 .checkout-form .overlay i.loader,
 .repare-form .overlay i.loader {
@@ -118,6 +129,8 @@
     color: #cacaca;
 }
 
+.add-form .overlay i.loader.icon-refresh-animate,
+.edit-form .overlay i.loader.icon-refresh-animate,
 .checkin-form .overlay i.loader.icon-refresh-animate,
 .checkout-form .overlay i.loader.icon-refresh-animate,
 .repare-form .overlay i.loader.icon-refresh-animate {
@@ -133,6 +146,7 @@
 }
 
 .checkout-form .locations,
+.add-form .locations,
 .edit-form .locations {
     list-style: none;
     margin: 0;
@@ -140,6 +154,7 @@
 }
 
 .checkout-form .locations li,
+.add-form .locations li,
 .edit-form .locations li {
     display: inline-block;
     margin: 5px;
@@ -148,20 +163,26 @@
 
 
 .asset-edit .status-list,
-.asset-edit .models-list {
+.asset-add .status-list,
+.asset-edit .models-list,
+.asset-add .models-list {
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
 .asset-edit .status-list li,
-.asset-edit .models-list li {
+.asset-add .status-list li,
+.asset-edit .models-list li,
+.asset-add .models-list li {
     display: inline-block;
     margin: 5px;
 }
 
 .asset-edit .status-list li .grey,
-.asset-edit .models-list li .grey {
+.asset-add .status-list li .grey,
+.asset-edit .models-list li .grey,
+.asset-add .models-list li .grey {
     background-color: #cacaca;
     border-color: #cacaca;
 }
