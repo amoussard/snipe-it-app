@@ -1,0 +1,26 @@
+<div class="content asset-view">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="row">
+                <h2>Barcode</h2>
+                <img ng-src="{{ barcode }}" alt="barcode" />
+            </div>
+        </div>
+        <div class="col-md-3 right-column">
+            <ul class="actions">
+                <li>
+                    <a href="#/asset" class="btn btn-default btn-lg">
+                        <i class="glyphicon glyphicon-barcode"></i>
+                        Back to scan
+                    </a>
+                </li>
+                <li>
+                    <a href="#/asset/{{ id }}" class="btn btn-default btn-lg">
+                        <i class="glyphicon glyphicon-eye-open"></i>
+                        Back to view
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

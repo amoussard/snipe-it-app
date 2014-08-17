@@ -58,6 +58,10 @@ angular.module('SnipeItAssetApp.services', []).
             });
         };
 
+        snipeItAssetAPI.getBarcode = function(id) {
+            return API_URL+'/hardware/' + id + '/barcode';
+        };
+
         snipeItAssetAPI.save = function(asset) {
             return $http({
                 method: 'PUT',

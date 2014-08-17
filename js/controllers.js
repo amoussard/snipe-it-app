@@ -209,6 +209,12 @@ angular.module('SnipeItApp.controllers', []).
                 });
         };
     }).
+
+    controller('assetBarcodeController', function($scope, $routeParams, $location, snipeItAssetAPIservice) {
+        $scope.id = $routeParams.id;
+        $scope.barcode = snipeItAssetAPIservice.getBarcode($scope.id);
+    }).
+
     controller('assetEditController', function($scope, $routeParams, $location, snipeItAssetAPIservice, snipeItStatusAPIservice, snipeItModelAPIservice, snipeItLocationAPIservice) {
         $scope.id = $routeParams.id;
 

@@ -38,25 +38,6 @@
                             {{ asset.serial }}
                         </p>
                     </div>
-
-                    <div class="col-md-6">
-                        <label>Barcode</label>
-                        <p class="form-control-static" ng-if="asset.barcode">
-                            <div class="alert alert-warning" ng-if="asset.barcode != newBarcode">
-                                <i class="glyphicon glyphicon-flag"></i>
-                                <span>The asset have a outdated barcode to identify it. Click </span>
-                                <a ng-click="generateBarcode()">here</a>
-                                <span>to generate another one.</span>
-                            </div>
-                            {{ asset.barcode }}
-                        </p>
-                        <div class="alert alert-warning" ng-if="!asset.barcode">
-                            <i class="glyphicon glyphicon-flag"></i>
-                            <span>The asset have not a barcode to identify it. Click </span>
-                            <a ng-click="generateBarcode()">here</a>
-                            <span>to generate one.</span>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -119,6 +100,12 @@
                     <a href="#/asset/{{ asset.id }}/repare" class="btn btn-warning btn-lg">
                         <i class="glyphicon glyphicon-wrench"></i>
                         Repare
+                    </a>
+                </li>
+                <li>
+                    <a href="#/asset/{{ asset.id }}/barcode" class="btn btn-info btn-lg">
+                        <i class="glyphicon glyphicon-barcode"></i>
+                        Get barcode
                     </a>
                 </li>
             </ul>
